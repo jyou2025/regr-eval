@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "regreval"
+version = "0.1.0"
+description = "Lightweight regression model evaluation metrics"
+readme = "README.md"
+requires-python = ">=3.9"
+license = "MIT"
+license-files = ["LICENSE"]
+dependencies = ["numpy>=1.20"]
+authors = [{ name = "RegrEval contributors" }]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering",
+]
+keywords = ["regression", "evaluation", "MSPE", "CCC"]
+
+[project.urls]
+Homepage = "https://github.com/jyou2025/regr-eval"
+Repository = "https://github.com/jyou2025/regr-eval"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["regreval*"]
