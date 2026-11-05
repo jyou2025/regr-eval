@@ -167,8 +167,10 @@ $$
 X_{\mathrm{pct}} = \frac{X}{\mathrm{MSPE}}\times 100.
 $$
 
-The component percentages are undefined when $\mathrm{MSPE}=0$, although all
-three absolute components are zero for a perfect prediction.
+The component percentages are undefined when $\mathrm{MSPE}=0$. For a perfect
+nonconstant prediction, all three absolute components are theoretically zero.
+For a perfect constant prediction, ECT is zero while ER and ED are undefined
+because Pearson's $r$ is undefined.
 
 ### Lin's concordance correlation coefficient
 
@@ -180,7 +182,7 @@ $$
 {s_O^2+s_P^2+(\bar O-\bar P)^2}.
 $$
 
-It can also be written as
+When both variables have nonzero variance, it can also be written as
 
 $$
 \rho_c = rC_b,
@@ -220,8 +222,8 @@ $$
 $$
 
 These are fitted-plot coefficients, not coefficients of the original
-prediction model. Under perfect agreement, slope is 1 and intercept is 0. Both
-are undefined when the observed values have zero variance.
+prediction model. Under perfect nonconstant agreement, slope is 1 and intercept
+is 0. Both are undefined when the observed values have zero variance.
 
 ## References
 
