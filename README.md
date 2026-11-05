@@ -1,5 +1,7 @@
 # regr-eval
 
+[![PyPI version](https://img.shields.io/pypi/v/regreval.svg)](https://pypi.org/project/regreval/)
+
 A lightweight toolkit for evaluating regression model predictions, developed
 for animal science modelers.
 
