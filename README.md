@@ -119,8 +119,8 @@ $$
 $$
 
 Percentage RMSPE is undefined when $\bar O=0$. Because normalization uses
-$\bar O$ rather than $\lvert\bar O\rvert$, percentage RMSPE is negative when
-$\bar O<0$; this sign does not indicate the direction of prediction error.
+$\bar O$ rather than $\lvert\bar O\rvert$, percentage RMSPE can be negative
+when $\bar O<0$; this sign does not indicate the direction of prediction error.
 
 #### MAE
 
@@ -238,6 +238,6 @@ is 0. Both are undefined when the observed values have zero variance.
 ## References
 
 - Bibby, J., and Toutenburg, H. (1977). *Prediction and Improved Estimation in
-  Linear Models*.
+  Linear Models*. John Wiley & Sons.
 - Lin, L. I. (1989). A concordance correlation coefficient to evaluate
   reproducibility. *Biometrics*, 45(1), 255–268.
