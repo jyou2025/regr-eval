@@ -81,6 +81,10 @@ It is undefined when either variable has zero variance.
 
 ### Prediction-error metrics
 
+Following Bibby and Toutenburg (1977), prediction differences are written as
+predicted minus observed, $P_i-O_i$. For the squared- and absolute-error metrics
+reported here, this is mathematically equivalent to using $O_i-P_i$.
+
 #### MSPE and MSE
 
 The mean squared prediction error is
@@ -114,7 +118,9 @@ $$
 \frac{\mathrm{RMSPE}}{\bar O}\times 100.
 $$
 
-Percentage RMSPE is undefined when $\bar O=0$.
+Percentage RMSPE is undefined when $\bar O=0$. Because normalization uses
+$\bar O$ rather than $\lvert\bar O\rvert$, percentage RMSPE is negative when
+$\bar O<0$; this sign does not indicate the direction of prediction error.
 
 #### MAE
 
@@ -195,6 +201,10 @@ C_b =
 \frac{2s_Os_P}
 {s_O^2+s_P^2+(\bar O-\bar P)^2}.
 $$
+
+The covariance form of CCC may remain defined when Pearson's $r$ is undefined.
+CCC and $C_b$ are undefined when their common denominator is zero, which occurs
+when both variables are the same constant.
 
 Pearson's $r$ measures precision, while $C_b$ measures departure from the
 45-degree line of perfect agreement.
