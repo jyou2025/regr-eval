@@ -1,0 +1,15 @@
+.venv/
+.julia-env/
+
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+
+Manifest.toml
+
+.ipynb_checkpoints/
+
+~$*.xlsx
