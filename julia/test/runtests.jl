@@ -4,8 +4,10 @@ using Test
 
 @testset "RegrEval.evaluate" begin
     @testset "result fields and types" begin
-        result = evaluate([1, 2, 3], [1.1, 1.9, 3.2])
+        result = RegrEval.evaluate([1, 2, 3], [1.1, 1.9, 3.2])
 
+        @test isdefined(RegrEval, :evaluate)
+        @test :evaluate ∉ names(RegrEval)
         @test propertynames(result) == METRIC_NAMES
         @test length(result) == 16
         @test result.n isa Int
@@ -17,7 +19,7 @@ using Test
     @testset "direct reference calculation" begin
         observed = [1.0, 2.0, 4.0, 5.0]
         predicted = [1.2, 1.8, 3.5, 5.5]
-        result = evaluate(observed, predicted)
+        result = RegrEval.evaluate(observed, predicted)
 
         errors = predicted .- observed
         mean_observed = mean(observed)
@@ -76,7 +78,7 @@ using Test
     end
 
     @testset "perfect prediction" begin
-        result = evaluate([1, 2, 3, 4], [1, 2, 3, 4])
+        result = RegrEval.evaluate([1, 2, 3, 4], [1, 2, 3, 4])
 
         @test result.n == 4
         for name in (:RMSPE_pct, :RMSPE, :MAE, :MSPE, :ECT)
@@ -96,7 +98,7 @@ using Test
     end
 
     @testset "perfect constant prediction" begin
-        result = evaluate([2.0, 2.0, 2.0], [2.0, 2.0, 2.0])
+        result = RegrEval.evaluate([2.0, 2.0, 2.0], [2.0, 2.0, 2.0])
         for name in (:RMSPE_pct, :RMSPE, :MAE, :MSPE, :ECT)
             @test getproperty(result, name) == 0.0
         end
@@ -117,38 +119,38 @@ using Test
     end
 
     @testset "pairwise missing-value removal" begin
-        with_missing = evaluate(
+        with_missing = RegrEval.evaluate(
             [1.0, 2.0, NaN, 4.0, 5.0],
             [1.1, NaN, 3.0, 3.8, 5.2],
         )
-        cleaned = evaluate([1.0, 4.0, 5.0], [1.1, 3.8, 5.2])
+        cleaned = RegrEval.evaluate([1.0, 4.0, 5.0], [1.1, 3.8, 5.2])
         @test isequal(with_missing, cleaned)
 
-        with_missing_value = evaluate(
+        with_missing_value = RegrEval.evaluate(
             [1.0, missing, 3.0],
             [1.0, 2.0, 3.1],
         )
-        cleaned_missing_value = evaluate([1.0, 3.0], [1.0, 3.1])
+        cleaned_missing_value = RegrEval.evaluate([1.0, 3.0], [1.0, 3.1])
         @test isequal(with_missing_value, cleaned_missing_value)
     end
 
     @testset "invalid inputs" begin
-        @test_throws ArgumentError evaluate([1, 2, NaN], [1, 2])
-        @test_throws ArgumentError evaluate([1 2; 3 4], [1 2; 3 4])
-        @test_throws ArgumentError evaluate([1, 2, Inf], [1, 2, 3])
-        @test_throws ArgumentError evaluate([1, NaN], [1, 2])
-        @test_throws ArgumentError evaluate([1, "not numeric"], [1, 2])
-        @test_throws ArgumentError evaluate([1 + 0im, 2 + 0im], [1, 2])
+        @test_throws ArgumentError RegrEval.evaluate([1, 2, NaN], [1, 2])
+        @test_throws ArgumentError RegrEval.evaluate([1 2; 3 4], [1 2; 3 4])
+        @test_throws ArgumentError RegrEval.evaluate([1, 2, Inf], [1, 2, 3])
+        @test_throws ArgumentError RegrEval.evaluate([1, NaN], [1, 2])
+        @test_throws ArgumentError RegrEval.evaluate([1, "not numeric"], [1, 2])
+        @test_throws ArgumentError RegrEval.evaluate([1 + 0im, 2 + 0im], [1, 2])
     end
 
     @testset "zero observed mean" begin
-        result = evaluate([-1.0, 0.0, 1.0], [-0.8, 0.1, 1.2])
+        result = RegrEval.evaluate([-1.0, 0.0, 1.0], [-0.8, 0.1, 1.2])
         @test isnan(result.RMSPE_pct)
         @test isfinite(result.RMSPE)
     end
 
     @testset "constant prediction" begin
-        result = evaluate([1.0, 2.0, 3.0], [2.0, 2.0, 2.0])
+        result = RegrEval.evaluate([1.0, 2.0, 3.0], [2.0, 2.0, 2.0])
         @test isnan(result.Pearson_r)
         @test isnan(result.ER)
         @test isnan(result.ED)
@@ -162,7 +164,7 @@ using Test
     end
 
     @testset "constant observed values" begin
-        result = evaluate([2.0, 2.0, 2.0], [1.0, 2.0, 3.0])
+        result = RegrEval.evaluate([2.0, 2.0, 2.0], [1.0, 2.0, 3.0])
         @test isnan(result.Pearson_r)
         @test isnan(result.ER)
         @test isnan(result.ED)
