@@ -7,7 +7,7 @@ module RegrEval
 
 using Statistics: mean
 
-export METRIC_NAMES, evaluate
+export METRIC_NAMES
 
 include("validation.jl")
 include("evaluation.jl")
