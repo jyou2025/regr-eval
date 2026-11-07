@@ -17,10 +17,12 @@ Pkg.add("RegrEval")
 
 ## Inputs
 
-The function signature is:
+To avoid conflicts with functions of the same name exported by other Julia
+packages, `evaluate` is not exported and is accessed through the `RegrEval`
+namespace:
 
 ```julia
-evaluate(observed, predicted)
+RegrEval.evaluate(observed, predicted)
 ```
 
 | Input | Meaning |
@@ -39,7 +41,7 @@ The argument order matters: `RMSPE_pct` is normalized by the mean of
 
 ## Returned values
 
-`evaluate()` returns a `NamedTuple`. The valid-pair count `n` is an `Int`, and
+`RegrEval.evaluate()` returns a `NamedTuple`. The valid-pair count `n` is an `Int`, and
 all metric values are `Float64`.
 
 | Field | Meaning | Unit |
@@ -94,7 +96,7 @@ using RegrEval
 observed = [1.0, 2.0, 4.0, 5.0]
 predicted = [1.2, 1.8, 3.5, 5.5]
 
-result = evaluate(observed, predicted)
+result = RegrEval.evaluate(observed, predicted)
 
 println(result.MSPE)
 println(result.CCC)
@@ -114,7 +116,7 @@ using RegrEval
 observed = [1.0, 2.0, missing, 4.0]
 predicted = [1.1, missing, 3.0, 3.9]
 
-result = evaluate(observed, predicted)
+result = RegrEval.evaluate(observed, predicted)
 println(result.n)  # 2
 ```
 
